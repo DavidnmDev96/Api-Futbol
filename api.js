@@ -3,7 +3,7 @@ const sqlite3 = require("sqlite3").verbose();
 const app = express();
  
 // Configura aquí tus detalles de conexión a la base de datos SQLite
-const db = new sqlite3.Database("./db/database.sqlite");
+const db = new sqlite3.Database("./database.sqlite");
  
 // Endpoint para obtener los jugadores de un equipo específico por el nombre del equipo
 app.get("/jugadores/:equipo", (req, res) => {
