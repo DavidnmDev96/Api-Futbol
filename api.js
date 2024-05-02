@@ -6,7 +6,7 @@ const app = express();
 const db = new sqlite3.Database("./db/database.sqlite");
  
 // Endpoint para obtener los jugadores de un equipo específico por el nombre del equipo
-app.get("/jugadores/:equipo", (req, res) => {
+app.post("/jugadores/:equipo", (req, res) => {
   try {
     const { equipo } = req.params;
     console.log(equipo); // Obtén el nombre del equipo de los parámetros de la URL;  // Obtén el nombre del equipo de los parámetros de la URL
