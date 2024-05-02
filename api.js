@@ -5,7 +5,16 @@ const app = express();
 const bodyParser = require('body-parser');
  
 // Configura aquí tus detalles de conexión a la base de datos SQLite
-const db = path.resolve(__dirname, 'db', 'database.sqlite');
+const DB_PATH = path.resolve(__dirname, 'db', 'database.sqlite');
+
+
+const db = new sqlite3.Database(DB_PATH, (err) => {
+  if (err) {
+    console.error('Error al abrir la base de datos', err.message);
+  } else {
+    console.log('Conectado a la base de datos SQLite');
+  }
+});
 
 app.use(bodyParser.json());
 // Endpoint para obtener los jugadores de un equipo específico por el nombre del equipo
