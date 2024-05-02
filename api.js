@@ -1,10 +1,12 @@
 const express = require("express");
+const path = require('path');
 const sqlite3 = require("sqlite3").verbose();
 const app = express();
 const bodyParser = require('body-parser');
  
 // Configura aquí tus detalles de conexión a la base de datos SQLite
-const db = new sqlite3.Database("./db/database.sqlite");
+const db = path.resolve(__dirname, 'db', 'database.sqlite');
+
 app.use(bodyParser.json());
 // Endpoint para obtener los jugadores de un equipo específico por el nombre del equipo
 app.post("/jugadores", async (req, res) => {
