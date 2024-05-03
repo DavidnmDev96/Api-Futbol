@@ -3,7 +3,7 @@ const path = require('path');
 const sqlite3 = require("sqlite3");
 const app = express();
 const bodyParser = require('body-parser');
-const { exec } = require('child_process');
+
 
 // Configura aquí tus detalles de conexión a la base de datos SQLite
 const DB_PATH = path.join(__dirname, 'db', 'database.sqlite');
@@ -73,7 +73,7 @@ app.post("/jugadores", async (req, res) => {
 
          console.log(query)
 
-    db.all(query, [equipo], async (err, rows) => {
+         db.serialize(() => { db.all(query, [equipo], async (err, rows) => {
       if (err) {
         console.error(err);
         res.status(500).send("Error en el servidor"); 
@@ -92,6 +92,7 @@ app.post("/jugadores", async (req, res) => {
        
     
     });
+  })
   } catch (err) {
     console.error(err);
     res.status(500).send("Error en el servidor"); 
