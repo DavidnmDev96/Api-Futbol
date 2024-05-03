@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const DB_PATH = path.join(__dirname, 'database');
 
 
-const db = new sqlite3.Database(DB_PATH,  (err) => {
+const db = new sqlite3.Database(DB_PATH, sqlite3.OPEN_READONLY, (err) => {
   try {
     if (err) {
       console.error('Error al abrir la base de datos', err.message);
