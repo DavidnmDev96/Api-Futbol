@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.post("/jugadores", async (req, res) => {
   try {
     const equipo = req.body.equipo; // Obtén el nombre del equipo de los parámetros de la URL
-    console.log(req.body); // Obtén el nombre del equipo de los parámetros de la URL;  // Obtén el nombre del equipo de los parámetros de la URL
+    console.log(equipo); // Obtén el nombre del equipo de los parámetros de la URL;  // Obtén el nombre del equipo de los parámetros de la URL
     const query = `SELECT DISTINCT p.player_name
        FROM Player p
       JOIN Match m ON (
