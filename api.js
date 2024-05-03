@@ -23,6 +23,8 @@ const db = new sqlite3.Database(DB_PATH,  sqlite3.OPEN_READWRITE, (err) => {
   }
 });
 
+console.log(db)
+
 
 
 
