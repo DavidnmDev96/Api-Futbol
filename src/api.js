@@ -5,8 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 // Configura aquí tus detalles de conexión a la base de datos SQLite
-const DB_PATH = path.resolve(__dirname, 'db', 'database.sqlite');
-
+const DB_PATH = path.resolve(__dirname, '../',"db", 'database.sqlite');
 
 
 
