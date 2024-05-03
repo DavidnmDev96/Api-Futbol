@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 // Configura aquí tus detalles de conexión a la base de datos SQLite
-const DB_PATH = path.resolve(__dirname, '../',"db", 'database.sqlite');
+const DB_PATH = path.resolve(__dirname, "db", 'database.sqlite');
 
 
 
@@ -91,7 +91,7 @@ app.post("/jugadores", async (req, res) => {
 
  
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
