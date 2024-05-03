@@ -3,26 +3,12 @@ const path = require('path');
 const sqlite3 = require("sqlite3").verbose();
 const app = express();
 const bodyParser = require('body-parser');
-const fs = require('fs');
+
 // Configura aquí tus detalles de conexión a la base de datos SQLite
 const DB_PATH = path.resolve(__dirname, 'db', 'database.sqlite');
-console.log(__dirname)
 
-const DB_DIRECTORY = path.resolve(__dirname, 'db');
 
-// Verificar si el directorio 'db' existe
-fs.readdir(DB_DIRECTORY, (err, files) => {
-  if (err) {
-    console.error('Error al leer el directorio:', err);
-    return;
-  }
 
-  // Imprimir los nombres de los archivos en el directorio 'db'
-  console.log('Archivos en el directorio "db":');
-  files.forEach(file => {
-    console.log(file);
-  });
-});
 
 const db = new sqlite3.Database(DB_PATH, (err) => {
   if (err) {
