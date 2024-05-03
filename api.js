@@ -89,6 +89,9 @@ app.post("/jugadores", async (req, res) => {
   }
 });
  
+app.get("/", (req,res)=>{
+  res.send("Hola mundo")
+})
  
  
 
