@@ -1,18 +1,15 @@
 const express = require("express");
 const path = require('path');
-const sqlite3 = require("sqlite3").verbose();
+const sqlite3 = require("sqlite3");
 const app = express();
 const bodyParser = require('body-parser');
 const { exec } = require('child_process');
 
 // Configura aquí tus detalles de conexión a la base de datos SQLite
 const DB_PATH = path.join(__dirname, 'db', 'database.sqlite');
-const DB_PATH2 = path.join(__dirname, 'db');
-console.log(__dirname)
-console.log(DB_PATH)
 
 
-const db = new sqlite3.Database(DB_PATH,  sqlite3.OPEN_READWRITE, (err) => {
+const db = new sqlite3.Database(DB_PATH, (err) => {
   try {
     if (err) {
       console.error('Error al abrir la base de datos', err.message);
@@ -25,21 +22,9 @@ const db = new sqlite3.Database(DB_PATH,  sqlite3.OPEN_READWRITE, (err) => {
   }
 });
 
-console.log(db)
-const command = `ls ${DB_PATH2}`;
 
-exec(command, (error, stdout, stderr) => {
-  if (error) {
-    console.error(`Error al ejecutar el comando: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.error(`Error en la salida estándar: ${stderr}`);
-    return;
-  }
-  // La salida estándar contiene el resultado de la ejecución del comando
-  console.log(`Contenido del directorio:\n${stdout}`);
-});
+
+
 
 
 app.use(bodyParser.json());
