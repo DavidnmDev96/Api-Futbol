@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 
 // Configura aquí tus detalles de conexión a la base de datos SQLite
-const DB_PATH = path.join(__dirname, 'database.sqlite');
+const DB_PATH = path.join(__dirname, 'database');
 
 
 const db = new sqlite3.Database(DB_PATH, (err) => {
