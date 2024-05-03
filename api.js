@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const DB_PATH = path.join(__dirname, 'database.sqlite');
 
 
-const db = new sqlite3.Database(DB_PATH, (err) => {
+const db = new sqlite3.Database(DB_PATH, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
   try {
     if (err) {
       console.error('Error al abrir la base de datos', err.message);
@@ -31,7 +31,7 @@ app.post("/jugadores", async (req, res) => {
     const equipo = req.body.equipo; // Obtén el nombre del equipo de los parámetros de la URL
     console.log(equipo); // Obtén el nombre del equipo de los parámetros de la URL;  // Obtén el nombre del equipo de los parámetros de la URL
     const query = `SELECT DISTINCT p.player_name
-       FROM player p
+       FROM Player p
       JOIN Match m ON (
            p.player_api_id = m.home_player_1 OR
           p.player_api_id = m.home_player_2 OR
@@ -45,12 +45,12 @@ app.post("/jugadores", async (req, res) => {
            p.player_api_id = m.home_player_10 OR
            p.player_api_id = m.home_player_11
        )
-        JOIN team t ON t.team_api_id = m.home_team_api_id
+        JOIN Team t ON t.team_api_id = m.home_team_api_id
        WHERE t.team_long_name = ?
        AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM Match)
         UNION
         SELECT DISTINCT p.player_name
-       FROM player p
+       FROM Player p
        JOIN Match m ON (
           p.player_api_id = m.away_player_1 OR
            p.player_api_id = m.away_player_2 OR
@@ -64,9 +64,9 @@ app.post("/jugadores", async (req, res) => {
            p.player_api_id = m.away_player_10 OR
           p.player_api_id = m.away_player_11
       )
-        JOIN team t ON t.team_api_id = m.away_team_api_id
+        JOIN Team t ON t.team_api_id = m.away_team_api_id
        WHERE t.team_long_name = ?
-         AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM match);`;
+         AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM Match);`;
 
          db.all(query, [equipo], async (err, rows) => {
       if (err) {
