@@ -30,43 +30,7 @@ app.post("/jugadores", async (req, res) => {
   try {
     const equipo = req.body.equipo; // Obtén el nombre del equipo de los parámetros de la URL
     console.log(equipo); // Obtén el nombre del equipo de los parámetros de la URL;  // Obtén el nombre del equipo de los parámetros de la URL
-    const query = `SELECT DISTINCT p.player_name
-       FROM Player p
-      JOIN Match m ON (
-           p.player_api_id = m.home_player_1 OR
-          p.player_api_id = m.home_player_2 OR
-           p.player_api_id = m.home_player_3 OR
-           p.player_api_id = m.home_player_4 OR
-          p.player_api_id = m.home_player_5 OR
-            p.player_api_id = m.home_player_6 OR
-           p.player_api_id = m.home_player_7 OR
-            p.player_api_id = m.home_player_8 OR
-           p.player_api_id = m.home_player_9 OR
-           p.player_api_id = m.home_player_10 OR
-           p.player_api_id = m.home_player_11
-       )
-        JOIN Team t ON t.team_api_id = m.home_team_api_id
-       WHERE t.team_long_name = ?
-       AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM Match)
-        UNION
-        SELECT DISTINCT p.player_name
-       FROM Player p
-       JOIN Match m ON (
-          p.player_api_id = m.away_player_1 OR
-           p.player_api_id = m.away_player_2 OR
-           p.player_api_id = m.away_player_3 OR
-         p.player_api_id = m.away_player_4 OR
-          p.player_api_id = m.away_player_5 OR
-           p.player_api_id = m.away_player_6 OR
-          p.player_api_id = m.away_player_7 OR
-           p.player_api_id = m.away_player_8 OR
-            p.player_api_id = m.away_player_9 OR
-           p.player_api_id = m.away_player_10 OR
-          p.player_api_id = m.away_player_11
-      )
-        JOIN Team t ON t.team_api_id = m.away_team_api_id
-       WHERE t.team_long_name = ?
-         AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM Match);`;
+    const query = `SELECT * FROM Team`;
 
          db.all(query, [equipo], async (err, rows) => {
       if (err) {
