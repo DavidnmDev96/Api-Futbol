@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 
 // Configura aquí tus detalles de conexión a la base de datos SQLite
-const DB_PATH = path.join(__dirname, 'database');
+const DB_PATH = path.join(__dirname, 'database.sqlite');
 
 
 const db = new sqlite3.Database(DB_PATH, (err) => {
@@ -31,7 +31,7 @@ app.post("/jugadores", async (req, res) => {
     const equipo = req.body.equipo; // Obtén el nombre del equipo de los parámetros de la URL
     console.log(equipo); // Obtén el nombre del equipo de los parámetros de la URL;  // Obtén el nombre del equipo de los parámetros de la URL
     const query = `SELECT DISTINCT p.player_name
-       FROM Player p
+       FROM player p
       JOIN Match m ON (
            p.player_api_id = m.home_player_1 OR
           p.player_api_id = m.home_player_2 OR
@@ -45,12 +45,12 @@ app.post("/jugadores", async (req, res) => {
            p.player_api_id = m.home_player_10 OR
            p.player_api_id = m.home_player_11
        )
-        JOIN Team t ON t.team_api_id = m.home_team_api_id
+        JOIN team t ON t.team_api_id = m.home_team_api_id
        WHERE t.team_long_name = ?
        AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM Match)
         UNION
         SELECT DISTINCT p.player_name
-       FROM Player p
+       FROM player p
        JOIN Match m ON (
           p.player_api_id = m.away_player_1 OR
            p.player_api_id = m.away_player_2 OR
@@ -64,9 +64,9 @@ app.post("/jugadores", async (req, res) => {
            p.player_api_id = m.away_player_10 OR
           p.player_api_id = m.away_player_11
       )
-        JOIN Team t ON t.team_api_id = m.away_team_api_id
+        JOIN team t ON t.team_api_id = m.away_team_api_id
        WHERE t.team_long_name = ?
-         AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM Match);`;
+         AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM match);`;
 
          db.all(query, [equipo], async (err, rows) => {
       if (err) {
