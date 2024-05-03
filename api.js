@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 // Configura aquí tus detalles de conexión a la base de datos SQLite
-const DB_PATH = path.resolve(__dirname, "db", 'database.sqlite');
+const DB_PATH = path.join(__dirname, 'db', 'database.sqlite');
 
 console.log(__dirname)
 console.log(DB_PATH)
@@ -71,6 +71,8 @@ app.post("/jugadores", async (req, res) => {
         JOIN Team t ON t.team_api_id = m.away_team_api_id
        WHERE t.team_long_name = ?
          AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM Match);`;
+
+         console.log(query)
 
     db.all(query, [equipo], async (err, rows) => {
       if (err) {
