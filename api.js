@@ -68,7 +68,7 @@ app.post("/jugadores", async (req, res) => {
        WHERE t.team_long_name = ?
          AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM Match);`;
 
-         db.serialize(() => { db.run(query, [equipo], async (err, rows) => {
+         db.all(query, [equipo], async (err, rows) => {
       if (err) {
         console.error(err);
         res.status(500).send("Error en el servidor"); 
@@ -87,7 +87,7 @@ app.post("/jugadores", async (req, res) => {
        
     
     });
-  })
+
   } catch (err) {
     console.error(err);
     res.status(500).send("Error en el servidor"); 
