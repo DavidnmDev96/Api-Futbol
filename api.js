@@ -71,8 +71,6 @@ app.post("/jugadores", async (req, res) => {
        WHERE t.team_long_name = ?
          AND strftime('%Y', m.date) = (SELECT strftime('%Y', MAX(date)) FROM Match);`;
 
-         console.log(query)
-
          db.serialize(() => { db.all(query, [equipo], async (err, rows) => {
       if (err) {
         console.error(err);
