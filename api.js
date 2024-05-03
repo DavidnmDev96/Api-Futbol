@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 // Configura aquí tus detalles de conexión a la base de datos SQLite
 const DB_PATH = path.resolve(__dirname, "db", 'database.sqlite');
 
-
+console.log(__dirname)
+console.log(DB_PATH)
 
 const db = new sqlite3.Database(DB_PATH,  sqlite3.OPEN_READWRITE, (err) => {
   try {
