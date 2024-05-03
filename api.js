@@ -10,10 +10,15 @@ const DB_PATH = path.resolve(__dirname, "db", 'database.sqlite');
 
 
 const db = new sqlite3.Database(DB_PATH,  sqlite3.OPEN_READWRITE, (err) => {
-  if (err) {
-    console.error('Error al abrir la base de datos', err.message);
-  } else {
-    console.log('Conectado a la base de datos SQLite');
+  try {
+    if (err) {
+      console.error('Error al abrir la base de datos', err.message);
+    } else {
+      console.log('Conectado a la base de datos SQLite');
+    }
+    
+  } catch (error) {
+    
   }
 });
 
