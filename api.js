@@ -89,10 +89,7 @@ app.post("/jugadores", async (req, res) => {
   }
 });
  
-app.get("/", (req,res)=>{
-  res.send("Hola mundo")
-})
- 
+
  
 
 const PORT = 3000;
