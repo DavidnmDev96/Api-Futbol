@@ -18,6 +18,8 @@ const db = new sqlite3.Database(DB_PATH,  sqlite3.OPEN_READWRITE, (err) => {
   }
 });
 
+
+
 app.use(bodyParser.json());
 // Endpoint para obtener los jugadores de un equipo específico por el nombre del equipo
 app.post("/jugadores", async (req, res) => {
